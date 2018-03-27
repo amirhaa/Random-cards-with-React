@@ -1,0 +1,15 @@
+.container {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.card {
+    width: 20%;
+    transition: all .5s;
+    opacity: 1;
+}
+.button-container {
+    margin-top: 40px;
+}

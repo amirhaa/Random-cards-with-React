@@ -13,6 +13,7 @@
     "babel-build": "babel --no-babelrc src/app.js -o public/scripts/app.js --presets=env,react --watch"
   },
   "dependencies": {
+    "animate.css": "^3.6.1",
     "babel-cli": "^6.26.0",
     "babel-core": "^6.26.0",
     "babel-loader": "^7.1.4",
