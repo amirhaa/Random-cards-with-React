@@ -1,0 +1,32 @@
+{
+  "name": "random-card",
+  "version": "1.0.0",
+  "description": "Random-cards-with-react",
+  "main": "index.js",
+  "author": "Amir Aleahmad",
+  "license": "MIT",
+  "scripts": {
+    "serve": "live-server public/",
+    "build": "webpack --mode development",
+    "watch": "webpack --mode development --watch",
+    "dev-server": "webpack-dev-server --mode development",
+    "babel-build": "babel --no-babelrc src/app.js -o public/scripts/app.js --presets=env,react --watch"
+  },
+  "dependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-core": "^6.26.0",
+    "babel-loader": "^7.1.4",
+    "babel-preset-env": "^1.6.1",
+    "babel-preset-react": "^6.24.1",
+    "css-loader": "^0.28.10",
+    "live-server": "^1.2.0",
+    "node-sass": "^4.7.2",
+    "react": "^16.2.0",
+    "react-dom": "^16.2.0",
+    "sass-loader": "^6.0.7",
+    "style-loader": "^0.20.3",
+    "webpack": "^4.1.1",
+    "webpack-cli": "^2.0.11",
+    "webpack-dev-server": "^3.1.1"
+  }
+}
