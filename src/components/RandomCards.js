@@ -12,9 +12,9 @@ export default class RandomCards extends React.Component {
         this.state = {
             tag: '',
             cardAvatar: {
-                sport: '/images/sport.png',
-                art: '/images/art.png',
-                fun: 'images/fun.png'
+                sport: './images/sport.png',
+                art: './images/art.png',
+                fun: './images/fun.png'
             },
             url: 'http://static.pushe.co/challenge/json',
             cards: [],

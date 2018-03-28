@@ -7,7 +7,7 @@
   "license": "MIT",
   "scripts": {
     "serve": "live-server public/",
-    "build": "webpack --mode development",
+    "build": "webpack --mode production",
     "watch": "webpack --mode development --watch",
     "dev-server": "webpack-dev-server --mode development",
     "babel-build": "babel --no-babelrc src/app.js -o public/scripts/app.js --presets=env,react --watch"
