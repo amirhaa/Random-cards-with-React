@@ -7,6 +7,8 @@ export default class RandomCards extends React.Component {
         super(props);
         this.handleAvatar = this.handleAvatar.bind(this);
         this.handleRandomCard = this.handleRandomCard.bind(this);
+        this.handleSaveUserChanges = this.handleSaveUserChanges.bind(this);
+        this.handleRandNum = this.handleRandNum.bind(this);
         this.state = {
             tag: '',
             cardAvatar: {
@@ -17,11 +19,13 @@ export default class RandomCards extends React.Component {
             url: 'http://static.pushe.co/challenge/json',
             cards: [],
             currentCard: undefined,
-            isAnimation: false
+            isAnimation: false,
+            randNum: undefined
         }
     }
     componentDidMount() {
         try {
+            // get json file from the url
             const request = new XMLHttpRequest();
             request.open('GET', this.state.url);
             request.responseType = 'json';
@@ -31,13 +35,12 @@ export default class RandomCards extends React.Component {
                 this.setState(() => ({
                     cards: cardsArr
                 }));
-                const newCardsArr = cardsArr.map((obj) => JSON.stringify(obj));
-                // localStorage.setItem('cards', newCardsArr);
             }
         } catch(error) {
-
+            // can show error when server is not accessible
         }
     }
+    // return card icon based on the card tag
     handleAvatar(tag) {
         switch(tag) {
             case 'sport':
@@ -51,15 +54,42 @@ export default class RandomCards extends React.Component {
                 break; 
         }
     }
+    // make a random number
+    handleRandNum() {
+        const randNum =  Math.floor(Math.random() * this.state.cards.length);
+        if( randNum === this.state.randNum ) {
+            return this.handleRandNum();
+        }
+        return randNum;
+    }
+    // for simplicity make a state current object
+    // set state of current card tag
+    // and check if it should have animation 
     handleRandomCard() {
-        const randNum = Math.floor(Math.random() * this.state.cards.length);
+        const randNum = this.handleRandNum();
         const cardObj = this.state.cards[randNum];
         this.setState((prevState) => ({
+            randNum: randNum,
             currentCard: cardObj,
             tag: cardObj.tag,
-            code: cardObj.code,
-            isAnimation: cardObj.code === 1
+            isAnimation: cardObj.code === 1,
         }));
+    }
+    // save new title and description to cards state
+    handleSaveUserChanges(value, editType) {
+        let cards = this.state.cards;
+        if(editType === 'title') {
+            cards[this.state.randNum]['title'] = value;
+            this.setState(() => ({
+                cards: cards
+            }));
+        }
+        else if(editType === 'description') {
+            cards[this.state.randNum]['description'] = value;
+            this.setState(() => ({
+                cards: cards
+            }));
+        }
     }
     render() {
         return (
@@ -68,6 +98,7 @@ export default class RandomCards extends React.Component {
                     currentCard = {this.state.currentCard}
                     cardAvatar = {this.handleAvatar(this.state.tag)}
                     isAnimation = {this.state.isAnimation}
+                    handleSaveUserChanges = {this.handleSaveUserChanges}
                 />
                 <Button 
                     handleRandomCard = {this.handleRandomCard}
