@@ -16,7 +16,7 @@ export default class RandomCards extends React.Component {
                 art: './images/art.png',
                 fun: './images/fun.png'
             },
-            url: 'http://static.pushe.co/challenge/json',
+            url: 'https://static.pushe.co/challenge/json',
             cards: [],
             currentCard: undefined,
             isAnimation: false,
