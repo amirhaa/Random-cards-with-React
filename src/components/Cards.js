@@ -1,7 +1,8 @@
 import React from 'react';
-import { Card, CardHeader, CardMedia, CardTitle, CardText, CardActions } from 'material-ui/Card';
+import { Card, CardHeader, CardMedia, CardText } from 'material-ui/Card';
 import FlatButton from 'material-ui/FlatButton';
-import TextField from 'material-ui/TextField';
+import CardButtons from './CardButtons';
+import CardEditPart from './CardEditPart';
 
 export default class Cards extends React.Component {
     constructor(props) {
@@ -56,31 +57,24 @@ export default class Cards extends React.Component {
         }));
     }
     render() {
-        return !!this.props.currentCard ? 
-            (
+        return !!this.props.currentCard ? (
                 <Card className={this.props.isAnimation ? 'card bounceIn' : 'card'} id="card">
-                    // Card Header
                     <CardHeader 
                         title={this.props.currentCard.title}
                         subtitle={this.props.currentCard.tag}
                         avatar={this.props.cardAvatar}
                     />
-                    // Card Description
                     <CardText> 
                         {this.props.currentCard.description}
                     </CardText>
-                    // Card Image or Sound
                     <CardMedia>
-                        {
-                            !!this.props.currentCard.image &&
-                            (
-                                <img src={this.props.currentCard.image} alt="" />
+                        { 
+                            !!this.props.currentCard.image && (
+                                <img src={this.props.currentCard.image} />
                             )
                         }
-                        
                         {
-                            !!this.props.currentCard.sound && 
-                            (
+                            !!this.props.currentCard.sound && (
                                 <audio autoPlay>
                                     <source src={this.props.currentCard.sound} type="audio/mpeg" />
                                 </audio>
@@ -89,50 +83,17 @@ export default class Cards extends React.Component {
                     </CardMedia>
                     // Card Buttons And Actions
                     {
-                        this.state.editMode ?
-                        (
-                            // Edit Mode (input and save button)
-                            <CardActions>
-                                <form onSubmit={this.handleSaveItem}>
-                                <TextField
-                                    hintText="new title"
-                                    name={this.state.editType}
-                                    fullWidth={true}
-                                />
-                                <br />
-                                <FlatButton 
-                                    label="Save" 
-                                    primary={true}
-                                    type="submit"
-                                /> 
-                                <FlatButton 
-                                    label="Cancel" 
-                                    secondary={true}
-                                    onClick={this.handleClickCancel}
-                                />
-                                </form>
-                            </CardActions>
-                        )
-                        :
-                        (
-                            // Show Buttons
-                            <CardActions>
-                                <FlatButton 
-                                    label="Edit Title" 
-                                    primary={true}
-                                    name="editTitle"
-                                    onClick={this.handleClickEdit}
-                                /> 
-                                <FlatButton 
-                                    label="Edit Description" 
-                                    secondary={true}
-                                    name="editDescription"
-                                    onClick={this.handleClickEdit}
-                                /> 
-                            </CardActions>
-                        )
+                        this.state.editMode ? (
+                            <CardEditPart 
+                                handleSaveItem = {this.handleSaveItem}
+                                handleClickCancel = {this.handleClickCancel}
+                                editType = {this.state.editType}
+                            />
+                        ) :
+                            <CardButtons 
+                                handleClickEdit = {this.handleClickEdit}
+                            />
                     }
-
                 </Card> 
                 // When no card is available
             ) : <h1>press the button to show a card.</h1>
